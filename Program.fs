@@ -1,9 +1,11 @@
-﻿open System
+open System
 
 type Card(number:int) =
     let cardNumber = number
     member x.Number with get() = cardNumber
     override x.ToString() = sprintf "%d" cardNumber
+
+type Select = High | Low
 
 let buildCardList = [
     for i in 1..13 do
@@ -12,9 +14,9 @@ let buildCardList = [
 
 let selectCard (cards:Card list) =
     cards |> List.item (Random().Next(0, cards.Length))
-    
+
 let duel (playerCard:Card) (enemyCard:Card) =
-    playerCard.Number > enemyCard.Number
+    if playerCard.Number > enemyCard.Number then High else Low
 
 let main =
     printfn "*** High & Low ***"
@@ -26,15 +28,15 @@ let main =
     printfn "your cards is %A" playerCard 
 
     printf "High(H) or Low(L)? -> "
-    let isExpectHigh = 
+    let selected = 
         match Console.ReadLine() with
-        | "High" | "high" | "H" | "h" -> true
-        | "Low" | "low" | "L" | "l" -> false
+        | "High" | "high" | "H" | "h" -> High
+        | "Low" | "low" | "L" | "l" -> Low
         | _ -> failwithf "Please input High or Low!"
 
     let result = duel playerCard enemyCard
     printfn "player:%A vs enemy:%A" playerCard enemyCard
-    if result = isExpectHigh then
+    if result = selected then
         printfn "jackpot!"
     else
         printfn "lose..."
