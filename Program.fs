@@ -7,13 +7,13 @@ type Card(number:int) =
 
 type Select = High | Low
 
-let buildCards = [|
-    for i in 1..13 do
-        yield Card(i)
-  |]
+let buildCard = seq{
+        for i in 1..13 do
+            yield Card(i)
+    }
 
-let selectCard (cards:Card array) =
-    cards |> Array.item (Random().Next(0, cards.Length))
+let selectCard (cards:Card seq) =
+    cards |> Seq.item (Random().Next(0, (Seq.length cards)))
 
 let duel (playerCard:Card) (enemyCard:Card) =
     if playerCard.Number > enemyCard.Number then High else Low
@@ -21,12 +21,11 @@ let duel (playerCard:Card) (enemyCard:Card) =
 let main =
     printfn "*** High & Low ***"
 
-    let cards = buildCards
+    let cards = buildCard
     let playerCard = cards |> selectCard
     let enemyCard = cards |> selectCard
     
     printfn "your cards is %A" playerCard 
-
     printf "High(H) or Low(L)? -> "
     let selected = 
         match Console.ReadLine() with
