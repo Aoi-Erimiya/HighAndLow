@@ -7,10 +7,7 @@ type Card(number:int) =
 
 type Select = High | Low
 
-let buildCard = seq{
-        for i in 1..13 do
-            yield Card(i)
-    }
+let buildCard = seq { for i in 1..13 do yield Card(i) }
 
 let selectCard (cards:Card seq) =
     cards |> Seq.item (Random().Next(0, (Seq.length cards)))
