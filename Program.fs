@@ -32,7 +32,7 @@ let main =
         match Console.ReadLine() with
         | "High" | "high" | "H" | "h" -> High
         | "Low" | "low" | "L" | "l" -> Low
-        | _ -> failwithf "Please input High or Low!"
+        | _ -> invalidArg "selected" "Please input High or Low!"
 
     let result = duel playerCard enemyCard
     printfn "player:%A vs enemy:%A" playerCard enemyCard
