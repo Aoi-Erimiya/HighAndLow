@@ -7,10 +7,10 @@ type Card(number:int) =
 
 type Select = High | Low
 
-let buildCards = seq { for i in 1..13 do yield Card(i) }
+let buildCards = [| for i in 1..13 do yield Card(i) |]
 
-let selectCard (cards:Card seq) =
-    cards |> Seq.item (Random().Next(0, (Seq.length cards)))
+let selectCard (cards:Card array) =
+    cards |> Array.item (Random().Next(0, (Array.length cards)))
 
 let duel (playerCard:Card) (enemyCard:Card) =
     if playerCard.Number > enemyCard.Number then High else Low
